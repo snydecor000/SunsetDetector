@@ -2,7 +2,7 @@
 
 clc;
 
-rootdir = '/Users/boutell/ManualBackup/Sunset/Crawled/images/';
+rootdir = 'SunsetImages/';
 subdir = [rootdir 'train'];
 
 trainImages = imageDatastore(...
