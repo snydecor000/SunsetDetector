@@ -8,7 +8,7 @@ R = rgbImg(:,:,1);
 G = rgbImg(:,:,2);
 B = rgbImg(:,:,3);
 
-L = (R+G+B)/3;
+L = (R+G+B);
 S = R-B;
 T = R-2*G+B;
 
@@ -16,4 +16,4 @@ lstImg = zeros(size(rgbImg));
 lstImg(:,:,1) = L;
 lstImg(:,:,2) = S;
 lstImg(:,:,3) = T;
-lstImg = uint8(lstImg);
+% lstImg = uint8(lstImg);

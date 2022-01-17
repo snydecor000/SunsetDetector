@@ -17,11 +17,10 @@ fprintf('Read images into datastores\n');
 xTrain = imageDatastoreReader(trainImages);
 yTrain = trainImages.Labels;
 
+% idx = find(yTrain == 'nonsunset');
+% NEWyTrain(idx) = -1;
+% idx = find(yTrain == 'sunset');
+% NEWyTrain(idx) = 1;
+
 %% Train and evaluate an SVM
-
-
-
-
-
-
 
