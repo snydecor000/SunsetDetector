@@ -10,8 +10,7 @@ for i = 1:nImages
     [img, fileinfo] = readimage(datastore, i);
     % fileinfo struct with filename and another field.
     fprintf('Processing %s\n', fileinfo.Filename);
-    % TODO: Write and call a feature extraction here to operate on image.
-    % Hint: debug this code ELSEWHERE on 1-2 images BEFORE looping over lots of them...
+
     featureVector = featureExtract(img, nBlocks);
     features(row,:) = featureVector;
     row = row + 1;
