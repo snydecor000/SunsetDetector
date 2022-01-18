@@ -123,18 +123,43 @@ disp('Test Set ---------------------------------------------------------');
 % Test the net on the Testing Set
 [predictedClasses,distances] = predict(net,xTest);
 
-% Get the statistics of how the net performed
-N = size(yTest,1);
-falsePositives = sum((predictedClasses > 0)&(yTest < 0))
-falseNegatives = sum((predictedClasses < 0)&(yTest > 0))
-truePositives =  sum((predictedClasses > 0)&(yTest > 0))
-trueNegatives =  sum((predictedClasses < 0)&(yTest < 0))
-numCorrect = truePositives + trueNegatives;
+% Get the statistics of how the net performed with different thresholds
+thresholds = [-2:0.1:2];
+for i = 1:max(size(thresholds))
+  N = size(yTest,1);
+  falsePositives = sum((distances(:,2) > thresholds(i))&(yTest < 0));
+  falseNegatives = sum((distances(:,2) < thresholds(i))&(yTest > 0));
+  truePositives =  sum((distances(:,2) > thresholds(i))&(yTest > 0));
+  trueNegatives =  sum((distances(:,2) < thresholds(i))&(yTest < 0));
+  numCorrect = truePositives + trueNegatives;
 
-TPR = truePositives/(truePositives+falseNegatives)
-FPR = falsePositives/(trueNegatives+falsePositives)
-precision = truePositives/(truePositives+falsePositives)
-accuracy = numCorrect/N
+  TPR(i) = truePositives/(truePositives+falseNegatives);
+  FPR(i) = falsePositives/(trueNegatives+falsePositives);
+  precision = truePositives/(truePositives+falsePositives);
+  accuracy(i) = numCorrect/N;
+end
+
+% Create a new figure. You can also number it: figure(1)
+figure(1);
+% Hold on means all subsequent plot data will be overlaid on a single plot
+hold on;
+% Plots using a blue line (see 'help plot' for shape and color codes 
+plot(FPR, TPR, 'b-', 'LineWidth', 2);
+% Overlaid with circles at the data points
+plot(FPR, TPR, 'bo', 'MarkerSize', 6, 'LineWidth', 2);
+
+% You could repeat here with a different color/style if you made 
+% an enhancement and wanted to show that it outperformed the baseline.
+
+% Title, labels, range for axes
+title('ROC Curve from Threshold Variance', 'fontSize', 18);
+xlabel('False Positive Rate', 'fontWeight', 'bold');
+ylabel('True Positive Rate', 'fontWeight', 'bold');
+% TPR and FPR range from 0 to 1. You can change these if you want to zoom in on part of the graph.
+grid on;
+axis([0 1 0 1]);
+hold off;
+
 
 % Grid Search with the hyperparameters BoxConstraint and KernelScale
 
