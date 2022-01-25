@@ -1,3 +1,7 @@
+%% Sunset Detector
+% Jordan Asman and Cory Snyder
+% Code built from some template code from Dr. Boutell
+
 %% Extract training data
 clc;
 
@@ -68,13 +72,13 @@ fprintf('Read images into datastores\n');
 xValidate = imageDatastoreReader(trainImages);
 yValidate = trainImages.Labels;
 
-idx = find(yValidate == 'nonsunset');
-NEWyValidate(idx) = -1;
-idx = find(yValidate == 'sunset');
-NEWyValidate(idx) = 1;
-yValidate = NEWyValidate;
-save('yValidate.mat')
-save('xValidate.mat')
+% idx = find(yValidate == 'nonsunset');
+% NEWyValidate(idx) = -1;
+% idx = find(yValidate == 'sunset');
+% NEWyValidate(idx) = 1;
+% yValidate = NEWyValidate;
+% save('yValidate.mat')
+% save('xValidate.mat')
 
 %% Train and evaluate an SVM
 clear;clc;close all;

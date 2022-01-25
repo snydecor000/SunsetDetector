@@ -1,17 +1,19 @@
-function features = imageDatastoreReader(datastore)
+function features = imageDatastoreReaderCNN(datastore)
 % Example of using an image datastore.
 
-nBlocks = 7; % 
+net = alexnet;
+layer = 'fc7';
+layerSize = 4096;
 nImages = numel(datastore.Files);
 
-features = zeros(nImages, nBlocks * nBlocks * 6); 
+features = zeros(nImages, layerSize); 
 row = 1;
 for i = 1:nImages
     [img, fileinfo] = readimage(datastore, i);
     % fileinfo struct with filename and another field.
     fprintf('Processing %s\n', fileinfo.Filename);
 
-    featureVector = featureExtract(img, nBlocks);
+    featureVector = activations(net,img,layer,'OutputAs','rows');
     features(row,:) = featureVector;
     row = row + 1;
 end
