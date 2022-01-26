@@ -1,6 +1,3 @@
-%% Alexnet Feature Extraction with SVM
-featuresTrain = activations(net,augimdsTrain,layer,'OutputAs','rows');
-
 %% Extract Training Data
 clc; clear all;
 
