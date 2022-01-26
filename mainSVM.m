@@ -103,6 +103,7 @@ yTest = yTest';
 
 kernelScale = 1154;%25.27
 boxConstraint = 49;%4.26
+
 net = fitcsvm(xTrain,yTrain,'KernelFunction','rbf', 'Standardize',false, ...
     'KernelScale',kernelScale,'ClassNames',[-1, 1], 'BoxConstraint',boxConstraint);
 
@@ -128,7 +129,7 @@ disp('Test Set ---------------------------------------------------------');
 [predictedClasses,distances] = predict(net,xTest);
 
 % Get the statistics of how the net performed with different thresholds
-thresholds = [-2:0.1:2];
+thresholds = 0;%[-2:0.1:2];
 for i = 1:max(size(thresholds))
   N = size(yTest,1);
   falsePositives = sum((distances(:,2) > thresholds(i))&(yTest < 0));
@@ -156,7 +157,7 @@ plot(FPR, TPR, 'bo', 'MarkerSize', 6, 'LineWidth', 2);
 % an enhancement and wanted to show that it outperformed the baseline.
 
 % Title, labels, range for axes
-title('ROC Curve from Threshold Variance', 'fontSize', 18);
+title('MFE SVM ROC Curve', 'fontSize', 18);
 xlabel('False Positive Rate', 'fontWeight', 'bold');
 ylabel('True Positive Rate', 'fontWeight', 'bold');
 % TPR and FPR range from 0 to 1. You can change these if you want to zoom in on part of the graph.
@@ -165,8 +166,8 @@ axis([0 1 0 1]);
 hold off;
 
 
-% Grid Search with the hyperparameters BoxConstraint and KernelScale
-
+% % Grid Search with the hyperparameters BoxConstraint and KernelScale
+% 
 % Cs = [1:1:20];%[10:10:200];%[10:10:200];
 % sigmas = [1050:1:1100];%[900:10:1200];%[100:10:1000];
 % Cs = [45:0.5:60];
